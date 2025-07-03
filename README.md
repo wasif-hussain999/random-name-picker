@@ -117,7 +117,7 @@
 
   document.getElementById('spin').onclick = () => {
     const randomIndex = Math.floor(Math.random() * emails.length);
-    document.getElementById('winner').textContent = `Winner: ${emails[randomIndex]}`;
+    document.getElementById('winner').textContent = `Tag: ${emails[randomIndex]}`;
   };
 </script>
 
