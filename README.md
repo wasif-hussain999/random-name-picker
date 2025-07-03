@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My First Web Page</title>
+  <title>Email Picker Wheel</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,20 +12,6 @@
     h1 {
       color: #007BFF;
     }
-  </style>
-</head>
-<body>
-  <h1>Hello!! Motivator</h1>
-  <p>Spin the wheel to generate the e-mail id of the next person.</p>
-<head>
-    <meta charset="UTF-8">
-    <title>Generate Button</title>
-
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Email Picker Wheel</title>
-  <style>
     #wheel {
       width: 300px;
       height: 300px;
@@ -35,18 +21,23 @@
     }
     #spin {
       margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
 
-<canvas id="wheel" width="300" height="300"></canvas>
-<button id="spin">Spin the Wheel</button>
-<p id="winner"></p>
+  <h1>Hello!! Motivator</h1>
+  <p>Spin the wheel to generate the e-mail id of the next person.</p>
 
-<script>
-  const emails = [
-    'dhruv.shekhat@inferenz.ai',
+  <canvas id="wheel" width="300" height="300"></canvas><br>
+  <button id="spin">Generate Now</button>
+  <p id="winner"></p>
+
+  <script>
+    const emails = [   
+      'dhruv.shekhat@inferenz.ai',
 'krusha.panchal@inferenz.ai',
 'mit.patoliya@inferenz.ai',
 'divy.kaila@inferenz.ai',
@@ -182,38 +173,40 @@
 'prashant.sharma@inferenz.ai',
 'vismita.jani@inferenz.ai',
 'yash.thakkar@inferenz.ai'
-  ];
+   ];
 
-  const canvas = document.getElementById('wheel');
-  const ctx = canvas.getContext('2d');
-  const numSlices = emails.length;
-  const angle = (2 * Math.PI) / numSlices;
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+    const numSlices = emails.length;
+    const angle = (2 * Math.PI) / numSlices;
 
-  function drawWheel() {
-    for (let i = 0; i < numSlices; i++) {
-      ctx.beginPath();
-      ctx.moveTo(150, 150);
-      ctx.fillStyle = `hsl(${i * 360 / numSlices}, 100%, 70%)`;
-      ctx.arc(150, 150, 150, i * angle, (i + 1) * angle);
-      ctx.lineTo(150, 150);
-      ctx.fill();
-      ctx.save();
-      ctx.translate(150, 150);
-      ctx.rotate((i + 0.5) * angle);
-      ctx.fillStyle = '#000';
-      ctx.fillText(emails[i], 70, 0);
-      ctx.restore();
+    function drawWheel() {
+      for (let i = 0; i < numSlices; i++) {
+        ctx.beginPath();
+        ctx.moveTo(150, 150);
+        ctx.fillStyle = `hsl(${i * 360 / numSlices}, 100%, 70%)`;
+        ctx.arc(150, 150, 150, i * angle, (i + 1) * angle);
+        ctx.lineTo(150, 150);
+        ctx.fill();
+        ctx.save();
+        ctx.translate(150, 150);
+        ctx.rotate((i + 0.5) * angle);
+        ctx.fillStyle = '#000';
+        ctx.fillText(emails[i], 70, 0);
+        ctx.restore();
+      }
     }
-  }
 
-  drawWheel();
+    drawWheel();
 
-  document.getElementById('spin').onclick = () => {
-    const randomIndex = Math.floor(Math.random() * emails.length);
-    document.getElementById('winner').textContent = `Tag: ${emails[randomIndex]}`;
-  };
-</script>
+    document.getElementById('spin').onclick = function () {
+      const randomIndex = Math.floor(Math.random() * emails.length);
+      document.getElementById('winner').textContent = `Tag: ${emails[randomIndex]}`;
+
+      this.disabled = true;
+      this.textContent = 'Already Generated';
+    };
+  </script>
 
 </body>
 </html>
-
