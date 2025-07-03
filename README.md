@@ -181,7 +181,7 @@
 'anmol.shukla@inferenz.ai',
 'prashant.sharma@inferenz.ai',
 'vismita.jani@inferenz.ai',
-'yash.thakkar@inferenz.ai',
+'yash.thakkar@inferenz.ai'
   ];
 
   const canvas = document.getElementById('wheel');
