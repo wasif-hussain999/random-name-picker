@@ -35,8 +35,8 @@
   <button id="spin">Generate Now</button>
   <p id="winner"></p>
 
-  <script>
-    const emails = [   
+<script>
+  const emails = [   
 'Chirag Dudhrejia',
 'Devanshi Kevat',
 'Shubham Mishra',
@@ -138,38 +138,83 @@
 'Sanket Jain'
     ];
 
-    const canvas = document.getElementById('wheel');
-    const ctx = canvas.getContext('2d');
-    const numSlices = emails.length;
-    const angle = (2 * Math.PI) / numSlices;
+  const canvas = document.getElementById('wheel');
+  const ctx = canvas.getContext('2d');
+  const numSlices = emails.length;
+  const anglePerSlice = (2 * Math.PI) / numSlices;
 
-    function drawWheel() {
-      for (let i = 0; i < numSlices; i++) {
-        ctx.beginPath();
-        ctx.moveTo(150, 150);
-        ctx.fillStyle = `hsl(${i * 360 / numSlices}, 100%, 70%)`;
-        ctx.arc(150, 150, 150, i * angle, (i + 1) * angle);
-        ctx.lineTo(150, 150);
-        ctx.fill();
-        ctx.save();
-        ctx.translate(150, 150);
-        ctx.rotate((i + 0.5) * angle);
-        ctx.fillStyle = '#000';
-        ctx.fillText(emails[i], 70, 0);
-        ctx.restore();
+  let rotation = 0;
+  let spinning = false;
+
+  function drawWheel(rotationOffset = 0) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < numSlices; i++) {
+      const startAngle = i * anglePerSlice + rotationOffset;
+      const endAngle = startAngle + anglePerSlice;
+
+      ctx.beginPath();
+      ctx.moveTo(150, 150);
+      ctx.fillStyle = `hsl(${i * 360 / numSlices}, 100%, 70%)`;
+      ctx.arc(150, 150, 150, startAngle, endAngle);
+      ctx.lineTo(150, 150);
+      ctx.fill();
+
+      // Draw text
+      ctx.save();
+      ctx.translate(150, 150);
+      ctx.rotate(startAngle + anglePerSlice / 2);
+      ctx.textAlign = "right";
+      ctx.fillStyle = '#000';
+      ctx.font = '16px Arial';
+      ctx.fillText(emails[i], 140, 5);
+      ctx.restore();
+    }
+  }
+
+  function spinWheel() {
+    if (spinning) return;
+
+    spinning = true;
+    let duration = 3000; // 3 seconds
+    let start = null;
+    let finalRotation = Math.random() * 2 * Math.PI + (10 * 2 * Math.PI); // 10 full spins + offset
+    let winnerIndex = null;
+
+    function animate(timestamp) {
+      if (!start) start = timestamp;
+      const elapsed = timestamp - start;
+
+      const progress = Math.min(elapsed / duration, 1);
+      rotation = finalRotation * easeOutCubic(progress);
+      drawWheel(rotation);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        spinning = false;
+
+        // Normalize angle to find winning slice
+        const normalized = (2 * Math.PI - (rotation % (2 * Math.PI))) % (2 * Math.PI);
+        winnerIndex = Math.floor(normalized / anglePerSlice);
+        document.getElementById('winner').textContent = `Tag: ${emails[winnerIndex]}`;
+        document.getElementById('spin').disabled = true;
+        document.getElementById('spin').textContent = 'Already Generated';
       }
     }
 
-    drawWheel();
+    requestAnimationFrame(animate);
+  }
 
-    document.getElementById('spin').onclick = function () {
-      const randomIndex = Math.floor(Math.random() * emails.length);
-      document.getElementById('winner').textContent = `Tag: ${emails[randomIndex]}`;
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
 
-      this.disabled = true;
-      this.textContent = 'Already Generated';
-    };
-  </script>
+  drawWheel();
+
+  document.getElementById('spin').onclick = spinWheel;
+</script>
+
 
 </body>
 </html>
