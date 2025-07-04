@@ -35,7 +35,6 @@
 </head>
 <body>
 
-  <h1>Hello!! Motivator</h1>
   <p>Spin the wheel to generate the Name of the next person.</p>
 <body>
 
