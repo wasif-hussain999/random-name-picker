@@ -250,6 +250,3 @@
 
     spinBtn.onclick = spinWheel;
   </script>
-
-</body>
-</html>
