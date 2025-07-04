@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -38,8 +37,6 @@
 
   <h1>Hello!! Motivator</h1>
   <p>Spin the wheel to generate the Name of the next person.</p>
-
-</head>
 <body>
 
   <h1>Name Picker Wheel</h1>
