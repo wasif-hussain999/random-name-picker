@@ -190,7 +190,7 @@
       ctx.font = 'bold 16px Arial';
       ctx.textAlign = 'center';
       ctx.fillText("Who will be", 150, 145);
-      ctx.fillText("next", 150, 165);
+      ctx.fillText("next?", 150, 165);
     }
 
     function spinWheel() {
