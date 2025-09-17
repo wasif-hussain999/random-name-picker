@@ -144,7 +144,9 @@
 'Preeti Sharma',
 'Suresh  Bavaliya',
 'Rajat Sapkal',
-'Sanket Jain'
+'Sanket Jain',
+'Abhishek Sunil',
+'Mirisha Jarecha'         
     ];
 
     // Only 5 names shown on the wheel at a time (rotating subset)
